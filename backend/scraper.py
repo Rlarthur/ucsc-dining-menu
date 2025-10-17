@@ -11,34 +11,31 @@
 #  Rachel Carson & Oakes:   https://nutrition.sa.ucsc.edu/shortmenu.aspx?sName=UC+Santa+Cruz+Dining&locationNum=30&locationName=Rachel+Carson+%26+Oakes+Dining+Hall&naFlag=1
 #=======// UCSC MENU LINKS //=======#
 
-from bs4 import BeautifulSoup
-import requests
-
-source = requests.get('https://nutrition.sa.ucsc.edu/').text 
-
-soup = BeautifulSoup(source, 'html.parser')  ## stores the html in soup
+#source = requests.get('https://nutrition.sa.ucsc.edu/').text 
+#soup = BeautifulSoup(source, 'html.parser')  ## stores the html in soup
 # print(soup.prettify())
-
-all_menus = soup.find_all('a', limit = 5)  ## We only need the first 5 menus, the rest are the stores & cafes
-
-menus = {}  ## key is location and val is the link to menu
-for m in all_menus:
-    menus[m.get_text(strip=True)] = 'https://nutrition.sa.ucsc.edu/' + m['href']
-
+#all_menus = soup.find_all('a', limit = 5)  ## We only need the first 5 menus, the rest are the stores & cafes
+#menus = {}  ## key is location and val is the link to menu
+#for m in all_menus:
+#    menus[m.get_text(strip=True)] = 'https://nutrition.sa.ucsc.edu/' + m['href']
 #for (key, val) in menus.items():
 #    print('College Name:', key)
 #    print('Link to Menu:', val, '\n')
 
-source2 = requests.get(menus['John R. Lewis & College Nine Dining Hall']).text
-###soup2 = BeautifulSoup(source2, 'html.parser')
-###target_sections = soup2.find_all('div', class_='shortmenumeals')
+from bs4 import BeautifulSoup
+import requests
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
 
-###source2 = requests.get('https://nutrition.sa.ucsc.edu/shortmenu.aspx?sName=UC+Santa+Cruz+Dining&locationNum=40&locationName=John+R.+Lewis+%26+College+Nine+Dining+Hall&naFlag=1').text
-soup2 = BeautifulSoup(source2, 'html.parser')
+driver = webdriver.Chrome()
+url = "https://nutrition.sa.ucsc.edu/shortmenu.aspx?sName=UC+Santa+Cruz+Dining&locationNum=25&locationName=Porter+%26+Kresge+Dining+Hall&naFlag=1"
+
+driver.get(url)
+time.sleep(5)
+soup2 = BeautifulSoup(driver.page_source, 'html.parser')
+
+driver.quit()
+
 print(soup2) #Gives the ASP.NET runtime error in the form of html
-
-
-#for (key, val) in menus.items():
-#    source2 = requests.get(val).text
-#    soup2 = BeautifulSoup(source2, 'html.parser')
-#    target_sections = soup2.find_all('div', class_='shortmenumeals')
