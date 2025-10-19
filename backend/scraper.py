@@ -14,7 +14,7 @@ options.add_argument("--user-agent=Mozilla/5.0")
 driver = webdriver.Chrome(options=options)
 driver.get("https://nutrition.sa.ucsc.edu/")
 
-## I dont understand selenium, tried to turn this into a loop, didnt work so I am trying the long and bad way(mult try and finally)
+## List of colleges we want menus from
 colleges = ["John R. Lewis & College Nine Dining Hall",
             "Cowell & Stevenson Dining Hall",
             "Crown & Merrill Dining Hall and Banana Joe's",
