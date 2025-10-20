@@ -3,12 +3,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-import json
 
+import time
+import os, json
+JSON_PATH = os.environ.get("MENU_JSON", "menu_data.json")
+IS_HEADLESS = os.environ.get("IS_HEADLESS", "1") == "1"
+
+from selenium.webdriver.chrome.options import Options
 options = Options()
-# options.add_argument("--headless=new") # comment for visual testing of functionality
-options.add_argument("--start-maximized")
+if IS_HEADLESS:
+    options.add_argument("--headless=new")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--user-agent=Mozilla/5.0")
 
 driver = webdriver.Chrome(options=options)
@@ -54,5 +60,5 @@ finally:
     driver.quit()
 
 #Stores everything into JSON file
-with open("menu_data.json", "w", encoding="utf-8") as f:
-    json.dump(menu_data, f, ensure_ascii=False, indent=4)
+with open(JSON_PATH, "w", encoding="utf-8") as f:
+    json.dump(menu_data, f, ensure_ascii=False, indent=2)
