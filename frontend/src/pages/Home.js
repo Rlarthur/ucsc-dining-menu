@@ -15,6 +15,15 @@ function Home() {
           >
             View Today's Menu
           </button>
+          {/* JerryCheng added a new button: jump to the menu page of each dining hall */}
+          <div className="mt-4">
+            <button
+              onClick={() => (window.location.href = "/halls")}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+            >
+              Menus for dining halls at different colleges
+            </button>
+          </div>
         </div>
       </div>
     </div>
